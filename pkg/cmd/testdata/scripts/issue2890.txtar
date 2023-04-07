@@ -1,0 +1,16 @@
+# test that .chezmoiexternal.toml respects excludes
+exec chezmoi apply --verbose
+exists $HOME/AppData/Local/clink/includes/clink-completions/.busted
+exists $HOME/AppData/Local/clink/includes/clink-completions/angular-cli.lua
+! exists $HOME/AppData/Local/click/includes/clink-completions/.github
+! exists $HOME/AppData/Local/click/includes/clink-completions/.vscode
+! exists $HOME/AppData/Local/click/includes/clink-completions/git.lua
+
+-- home/user/.local/share/chezmoi/.chezmoiexternal.toml --
+["AppData/Local/clink/includes/clink-completions"]
+type = "archive"
+url = "https://github.com/vladimir-kotikov/clink-completions/archive/master.tar.gz"
+#exact = true
+stripComponents = 1
+#refreshPeriod = "168h"
+exclude	= ["**/.github", "**/.vscode", "**/git.lua"]
