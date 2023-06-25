@@ -1,0 +1,12 @@
+# test that chezmoi apply does not say that a file in an external has changed when it has not
+exec chezmoi apply
+exec chezmoi apply -v
+! stdout .
+
+-- home/user/.local/share/chezmoi/.chezmoiexternal.toml --
+["Library/Rime"]
+    type = "archive"
+    url = "https://github.com/iDvel/rime-ice/archive/refs/heads/main.zip"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "720h"
